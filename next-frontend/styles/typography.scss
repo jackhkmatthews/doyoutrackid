@@ -16,6 +16,12 @@
 
 @mixin button {
   font: var(--button-font);
-  text-transform: var(--button-transform);
-  letter-spacing: var(--button-letter-spacing);
+}
+
+@font-face {
+  font-display: optional;
+  font-family: "Arial Narrow";
+  font-style: normal;
+  font-weight: 400;
+  src: url("/Arial Narrow.woff2") format("woff2");
 }

@@ -5,38 +5,43 @@
   --grey-02: #b8b8b8;
   --yellow-01: #f4dd7c;
   --blue-01: #4770cf;
-
-  --heading-1-font: 400 50px/57px "Arial Narrow";
+  --font-family: "Arial Narrow", arial;
+  --heading-1-font: 400 50px/57px var(--font-family);
   --heading-1-letter-spacing: -0.02em;
   --heading-1-transform: uppercase;
 
   @include breakpoints.sm-up {
-    --heading-1-font: 400 70px/80px "Arial Narrow";
+    --heading-1-font: 400 70px/80px var(--font-family);
   }
 
-  --heading-2-font: 400 25px/29px "Arial Narrow";
+  --heading-2-font: 400 25px/29px var(--font-family);
   --heading-2-letter-spacing: -0.02em;
   --heading-2-transform: uppercase;
 
   @include breakpoints.sm-up {
-    --heading-2-font: 400 35px/40px "Arial Narrow";
+    --heading-2-font: 400 35px/40px var(--font-family);
   }
 
-  --heading-3-font: 400 16px/18px "Arial Narrow";
+  --heading-3-font: 400 12px/14px var(--font-family);
 
   @include breakpoints.sm-up {
-    --heading-3-font: 400 12px/14px "Arial Narrow";
+    --heading-3-font: 400 16px/18px var(--font-family);
   }
 
-  --button-font: 400 16px/18px "Arial Narrow";
-  --button-letter-spacing: -0.02em;
-  --button-transform: uppercase;
+  --button-font: 400 16px/18px var(--font-family);
 }
 
 html,
 body {
+  font-family: var(--font-family);
   margin: 0;
   padding: 0;
+}
+
+a {
+  color: inherit;
+  -webkit-tap-highlight-color: rgb(0 0 0 / 0%);
+  text-decoration: none;
 }
 
 * {
