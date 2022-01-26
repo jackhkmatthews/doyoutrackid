@@ -22,6 +22,16 @@
   position: fixed;
 }
 
+.loading {
+  @include typography.heading-1;
+
+  color: black;
+  hyphens: auto;
+  overflow-wrap: break-word;
+  padding: 14%;
+  word-break: break-word;
+}
+
 .bananaDates {
   grid-area: main;
 }
