@@ -4,7 +4,8 @@
   align-items: center;
   color: black;
   display: flex;
-  padding: var(--body-padding);
+  padding: 20px var(--body-padding);
+  justify-content: center;
 
   @include colorSchemes.dark {
     color: white;

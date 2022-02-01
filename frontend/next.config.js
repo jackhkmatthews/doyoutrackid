@@ -2,12 +2,14 @@
 const path = require("path");
 
 const { withSentryConfig } = require("@sentry/nextjs");
+const withPWA = require("next-pwa");
+const runtimeCaching = require("next-pwa/cache");
 const withBundleAnalyzer = require("@next/bundle-analyzer")({
   enabled: process.env.ANALYZE === "true",
 });
 
 /** @type {import('next').NextConfig} */
-const moduleExports = withBundleAnalyzer({
+let moduleExports = withBundleAnalyzer({
   reactStrictMode: true,
   sassOptions: {
     includePaths: [path.join(__dirname, "styles")],
@@ -29,6 +31,16 @@ const moduleExports = withBundleAnalyzer({
     });
     return config;
   },
+});
+
+moduleExports = withPWA({
+  pwa: {
+    dest: "public",
+    register: true,
+    skipWaiting: true,
+    runtimeCaching,
+  },
+  ...moduleExports,
 });
 
 const sentryWebpackPluginOptions = {

@@ -1,6 +1,7 @@
 import type { AppProps } from "next/app";
 import "normalize.css";
 import Script from "next/script";
+import Head from "next/head";
 
 import Layout from "../components/Layout/Layout";
 import { ElevenEleven } from "../contexts/elevenEleven";
@@ -13,6 +14,14 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <ElevenEleven.Provider value={{ isElevenEleven, setIsElevenEleven }}>
+      <Head>
+        <meta charSet="utf-8" />
+        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+        <meta
+          name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"
+        />
+      </Head>
       <Script
         strategy="beforeInteractive"
         async
