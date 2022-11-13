@@ -1,31 +1,32 @@
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
-export enum COLOR_SCHEME {
+export enum PREFERRED_COLOR_SCHEME {
   light = "light",
   dark = "dark",
   noPreference = "no-preference",
 }
 
-const query = (mode: COLOR_SCHEME) => `(prefers-color-scheme: ${mode})`;
+const query = (mode: PREFERRED_COLOR_SCHEME) =>
+  `(prefers-color-scheme: ${mode})`;
 
 function getDarkQuery() {
-  return window.matchMedia?.(query(COLOR_SCHEME.dark));
+  return window.matchMedia?.(query(PREFERRED_COLOR_SCHEME.dark));
 }
 function getLightQuery() {
-  return window.matchMedia?.(query(COLOR_SCHEME.light));
+  return window.matchMedia?.(query(PREFERRED_COLOR_SCHEME.light));
 }
 
 export function usePrefersColorScheme() {
   const [preferredColorSchema, setPreferredColorSchema] =
-    useState<COLOR_SCHEME>(COLOR_SCHEME.noPreference);
+    useState<PREFERRED_COLOR_SCHEME>(PREFERRED_COLOR_SCHEME.noPreference);
 
   // Initial getting of preferred color scheme
   useEffect(() => {
     const isDark = getDarkQuery()?.matches;
     const isLight = getLightQuery()?.matches;
-    if (isDark) setPreferredColorSchema(COLOR_SCHEME.dark);
-    else if (isLight) setPreferredColorSchema(COLOR_SCHEME.light);
-    else setPreferredColorSchema(COLOR_SCHEME.noPreference);
+    if (isDark) setPreferredColorSchema(PREFERRED_COLOR_SCHEME.dark);
+    else if (isLight) setPreferredColorSchema(PREFERRED_COLOR_SCHEME.light);
+    else setPreferredColorSchema(PREFERRED_COLOR_SCHEME.noPreference);
   }, []);
 
   // Listening for changes to preferred color scheme
@@ -34,9 +35,9 @@ export function usePrefersColorScheme() {
     const lightQuery = getLightQuery();
     if (typeof darkQuery.addEventListener === "function") {
       const darkListener = ({ matches }: MediaQueryListEvent) =>
-        matches && setPreferredColorSchema(COLOR_SCHEME.dark);
+        matches && setPreferredColorSchema(PREFERRED_COLOR_SCHEME.dark);
       const lightListener = ({ matches }: MediaQueryListEvent) =>
-        matches && setPreferredColorSchema(COLOR_SCHEME.light);
+        matches && setPreferredColorSchema(PREFERRED_COLOR_SCHEME.light);
 
       darkQuery.addEventListener("change", darkListener);
       lightQuery.addEventListener("change", lightListener);
@@ -54,10 +55,10 @@ export function usePrefersColorScheme() {
       const listener = () =>
         setPreferredColorSchema(
           darkQuery.matches
-            ? COLOR_SCHEME.dark
+            ? PREFERRED_COLOR_SCHEME.dark
             : lightQuery.matches
-            ? COLOR_SCHEME.light
-            : COLOR_SCHEME.noPreference
+            ? PREFERRED_COLOR_SCHEME.light
+            : PREFERRED_COLOR_SCHEME.noPreference
         );
 
       // This is two state updates if a user changes from dark to light, but
@@ -73,5 +74,8 @@ export function usePrefersColorScheme() {
     }
   }, []);
 
-  return preferredColorSchema;
+  return [preferredColorSchema, setPreferredColorSchema] as [
+    PREFERRED_COLOR_SCHEME,
+    Dispatch<SetStateAction<PREFERRED_COLOR_SCHEME>>
+  ];
 }

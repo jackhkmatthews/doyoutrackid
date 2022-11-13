@@ -2,7 +2,7 @@
   @media (prefers-color-scheme: dark) {
     @content;
   }
-  [color-scheme="dark"] & {
+  [data-color-scheme="dark"] & {
     @content;
   }
 }
